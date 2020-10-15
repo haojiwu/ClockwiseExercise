@@ -80,11 +80,13 @@ public class ClockwiseexerciseApplication {
 	}
 
 	static Set<Integer> findLostAttendances(List<Set<Integer>> inputs, Set<Integer> target) {
-		return inputs.stream()
+		Set<Integer> ret = inputs.stream()
 						.filter(input -> input != target)
 						.filter(input -> !Collections.disjoint(input, target))
 						.flatMap(input -> input.stream())
 						.collect(Collectors.toSet());
+		ret.removeAll(target);
+		return ret;
 	}
 	static Pair<List<Set<Integer>>, Integer> bestMeetingsWithSize2(List<Set<Integer>> inputs) {
 
@@ -97,7 +99,7 @@ public class ClockwiseexerciseApplication {
 							}
 						}).collect(Collectors.toList());
 
-		//meetings.forEach(meeting -> System.out.println(meeting));
+		meetings.forEach(meeting -> System.out.println(meeting));
 
 		return tryToFindBestMeetingsWithSizeBySortedMeetings2(meetings);
 	}
